@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rail_me/app/presenttion/screen/booking_page.dart';
+import 'package:rail_me/app/presenttion/screen/new_ticket_page.dart';
 import 'package:rail_me/app/presenttion/screen/support_page.dart';
 import '../../../core/Utilities/constants.dart';
 import '../../../core/Utilities/reuseables.dart';
@@ -63,7 +63,7 @@ class UserWelcomePage extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => BookingPage()));
+                                builder: (context) => NewTicketPage()));
                       },
                       child: BackgroundImage(
                         image: AssetImage("images/h1.jpg"),
@@ -119,7 +119,7 @@ class UserWelcomePage extends StatelessWidget {
                               getProportionateScreenWidth(10),
                               getProportionateScreenHeight(10)),
                           child: Text(
-                            "Routes",
+                            "View Booked Tickets",
                             style: TextStyle(
                               fontFamily: kfontFamily,
                               color: Colors.white,

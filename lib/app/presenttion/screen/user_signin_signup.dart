@@ -2,9 +2,7 @@
 import 'package:flutter/material.dart';
 import '../../../core/Utilities/constants.dart';
 import '../../../core/Utilities/size_config.dart';
-import 'admin_signin_signup.dart';
 import 'user_welcome_screen.dart';
-
 
 class UserSigninSignUp extends StatefulWidget {
   const UserSigninSignUp({Key? key}) : super(key: key);
@@ -229,40 +227,6 @@ class _UserSigninSignUpState extends State<UserSigninSignUp> {
           SizedBox(
             height: getProportionateScreenHeight(20),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                margin: EdgeInsets.only(top: getProportionateScreenHeight(20)),
-                child: Text(
-                  "Or login as admin",
-                  style: TextStyle(
-                      fontFamily: kfontFamily,
-                      fontSize: getProportionateScreenWidth(14),
-                      color: Colors.black),
-                ),
-              ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => AdminSigninSignup()));
-                },
-                child: Container(
-                  margin:
-                      EdgeInsets.only(top: getProportionateScreenHeight(20)),
-                  child: Text(
-                    " here",
-                    style: TextStyle(
-                        fontFamily: kfontFamily,
-                        fontSize: getProportionateScreenWidth(16),
-                        color: kmainColor),
-                  ),
-                ),
-              )
-            ],
-          ),
           SizedBox(
             height: getProportionateScreenHeight(10),
           ),
@@ -400,41 +364,6 @@ class _UserSigninSignUpState extends State<UserSigninSignUp> {
                         ]),
                   ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      margin: EdgeInsets.only(
-                          top: getProportionateScreenHeight(20)),
-                      child: Text(
-                        "Or signup as admin",
-                        style: TextStyle(
-                            fontFamily: kfontFamily,
-                            fontSize: getProportionateScreenWidth(14),
-                            color: Colors.black),
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => AdminSigninSignup()));
-                      },
-                      child: Container(
-                        margin: EdgeInsets.only(
-                            top: getProportionateScreenHeight(20)),
-                        child: Text(
-                          " here",
-                          style: TextStyle(
-                              fontFamily: kfontFamily,
-                              fontSize: getProportionateScreenWidth(16),
-                              color: kmainColor),
-                        ),
-                      ),
-                    )
-                  ],
-                ),
                 SizedBox(
                   height: getProportionateScreenHeight(45),
                 ),
@@ -476,8 +405,12 @@ class _UserSigninSignUpState extends State<UserSigninSignUp> {
               ],
             ),
             child: GestureDetector(
-              onTap: (() => Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => UserWelcomePage(),),)), 
+              onTap: (() => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => UserWelcomePage(),
+                    ),
+                  )),
               child: Container(
                   decoration: BoxDecoration(
                     gradient: LinearGradient(colors: [

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rail_me/app/presenttion/screen/user_profile.dart';
 import '../../../core/Utilities/constants.dart';
 import '../../../core/Utilities/reuseables.dart';
 import '../../../core/Utilities/size_config.dart';
@@ -41,7 +42,12 @@ class SupportPage extends StatelessWidget {
               ),
               Expanded(
                 child: GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => UserProfilePage()));
+                  },
                   child: Container(
                       padding: EdgeInsets.all(getProportionateScreenWidth(15)),
                       margin: EdgeInsets.all(getProportionateScreenWidth(15)),
