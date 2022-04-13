@@ -94,25 +94,7 @@ class UserLogin {
 }
 
 
-// class BookTicket {
-//     BookTicket({
-//          required this.success,
-//          this.ticket,
-//     });
 
-//     bool success;
-//     Ticket? ticket;
-
-//     factory BookTicket.fromJson(Map<String, dynamic> json) => BookTicket(
-//         success: json["success"] == null ? null : json["success"],
-//         ticket: json["ticket"] == null ? null : Ticket.fromJson(json["ticket"]),
-//     );
-
-//     Map<String, dynamic> toJson() => {
-//         "success": success == null ? null : success,
-//         "ticket": ticket == null ? null : ticket!.toJson(),
-//     };
-// }
 
 class Ticket {
     Ticket({
@@ -255,9 +237,7 @@ class DeleteBookingClass {
         required this.reservation,
         required this.time,
         required this.date,
-        required this.createdAt,
-        required this.updatedAt,
-        required this.v,
+    
     });
 
     String? id;
@@ -267,9 +247,7 @@ class DeleteBookingClass {
     String? reservation;
     String? time;
     DateTime? date;
-    DateTime? createdAt;
-    DateTime? updatedAt;
-    int? v;
+  
 
     factory DeleteBookingClass.fromJson(Map<String, dynamic> json) => DeleteBookingClass(
         id: json["_id"] == null ? null : json["_id"],
@@ -278,10 +256,8 @@ class DeleteBookingClass {
         destination: json["destination"] == null ? null : json["destination"],
         reservation: json["reservation"] == null ? null : json["reservation"],
         time: json["time"] == null ? null : json["time"],
-        date: json["date"] == null ? null : DateTime.parse(json["date"]),
-        createdAt: json["createdAt"] == null ? null : DateTime.parse(json["createdAt"]),
-        updatedAt: json["updatedAt"] == null ? null : DateTime.parse(json["updatedAt"]),
-        v: json["__v"] == null ? null : json["__v"],
+        date: json["date"] == null ? null : DateTime.parse(json["date"])
+        
     );
 
     Map<String, dynamic> toJson() => {
@@ -291,10 +267,7 @@ class DeleteBookingClass {
         "destination": destination == null ? null : destination,
         "reservation": reservation == null ? null : reservation,
         "time": time == null ? null : time,
-        "date": date == null ? null : date!.toIso8601String(),
-        "createdAt": createdAt == null ? null : createdAt!.toIso8601String(),
-        "updatedAt": updatedAt == null ? null : updatedAt!.toIso8601String(),
-        "__v": v == null ? null : v,
+        "date": date == null ? null : date!.toIso8601String()
     };
 }
 

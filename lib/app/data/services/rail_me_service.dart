@@ -133,6 +133,40 @@ class BookedTicketService {
   }
 }
 
+class DeleteTicketsService {
+  static final Dio dio = Dio();
+  static Future<Result> deleteTicket(String id) async {
+    String? _token = await SharedDataRepository.instance.getToken();
+    print(_token);
+    final deleteTicketUrl = Uri.parse(deleteBookingUrl);
+    try {
+      var response = await http.delete(deleteTicketUrl,
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer $_token"
+            // HttpHeaders.authorizationHeader: 'Bearer $_token',
+          });
+      if (response.statusCode == 200) {
+        print(response.body);
+        List <Map <String, dynamic>> deletedTicket = List<Map<String, dynamic>>.from(json.decode(response.body)['message']);
+        print(deletedTicket);
+        List<DeleteBookingClass> ticketdelete = deletedTicket.map((deleteT) => DeleteBookingClass.fromJson(deleteT)).toList();
+        return Success(response: ticketdelete);
+      } else {
+        print(response.statusCode);
+        return Failure(error: 'Unable to delete ticket');
+      }
+    } catch (e) {
+      print(e);
+      if (e is SocketException) {
+        return Failure(error: 'No internet connection');
+      } else {
+        return Failure(error: 'Unable to connect to server');
+      }
+    }
+  }
+}
+
 class EditBookingTimeService {
   static final Dio dio = Dio();
   static Future<Result> editBookingTime(String id, String time) async {

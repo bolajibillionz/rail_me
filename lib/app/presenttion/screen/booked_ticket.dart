@@ -59,11 +59,15 @@ class _BookedTicketPageState extends State<BookedTicketPage> {
                                 (snapshot.data! as Success).response[index];
                             return Container(
                               margin: EdgeInsets.all(
-                                  getProportionateScreenWidth(10)),
+                                  getProportionateScreenWidth(20)),
                               padding: EdgeInsets.all(
                                   getProportionateScreenWidth(20)),
                               decoration: BoxDecoration(
-                                color: kmainColor,
+                                border: Border.all(
+                                  color: kmainColor,
+                                  width: getProportionateScreenWidth(1),
+                                ),
+                                color: ksecondaryColor,
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               child: Column(
@@ -74,14 +78,26 @@ class _BookedTicketPageState extends State<BookedTicketPage> {
                                           height:
                                               getProportionateScreenHeight(10)),
                                       Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Text('Ticket Number:'),
+                                          Text('Ticket Number:',
+                                              style: TextStyle(
+                                                  fontSize:
+                                                      getProportionateScreenWidth(
+                                                          15),
+                                                  color: kblackcolor)),
                                           SizedBox(
                                             width:
-                                                getProportionateScreenWidth(10),
+                                                getProportionateScreenWidth(5),
                                           ),
-                                          Text('1234'
-                                              // '${widget.myTickets[index].fullName}'
+                                          Text('${ticket.id}',
+                                              style: TextStyle(
+                                                  fontSize:
+                                                      getProportionateScreenWidth(
+                                                          14),
+                                                  color: kblackcolor)
+                                              //
                                               ),
                                         ],
                                       ),
@@ -90,64 +106,27 @@ class _BookedTicketPageState extends State<BookedTicketPage> {
                                   SizedBox(
                                       height: getProportionateScreenHeight(10)),
                                   Row(
-                                    children: [
-                                      Text('Full name:'),
-                                      SizedBox(
-                                        width: getProportionateScreenWidth(10),
-                                      ),
-                                      Text('bolaji'
-                                          // '${widget.myTickets[index].fullName}'
-                                          ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                      height: getProportionateScreenHeight(10)),
-                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text('Destination:'),
                                       SizedBox(
                                         width: getProportionateScreenWidth(10),
                                       ),
-                                      Text('Lagos'
-                                          // '${widget.myTickets[index].fullName}'
-                                          ),
+                                      Text('${ticket.destination}'),
                                     ],
                                   ),
                                   SizedBox(
                                       height: getProportionateScreenHeight(10)),
                                   Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text('Reservation:'),
                                       SizedBox(
                                         width: getProportionateScreenWidth(10),
                                       ),
-                                      Text('firstclass'
-                                          // '${widget.myTickets[index].fullName}'
-                                          ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                      height: getProportionateScreenHeight(10)),
-                                  Row(
-                                    children: [
-                                      Text('Time:'),
-                                      SizedBox(
-                                        width: getProportionateScreenWidth(10),
-                                      ),
-                                      Text('time'
-                                          // '${widget.myTickets[index].fullName}'
-                                          ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                      height: getProportionateScreenHeight(10)),
-                                  Row(
-                                    children: [
-                                      Text('Date:'),
-                                      SizedBox(
-                                        width: getProportionateScreenWidth(10),
-                                      ),
-                                      Text("date"
+                                      Text('${ticket.reservation}'
                                           // '${widget.myTickets[index].fullName}'
                                           ),
                                     ],
@@ -158,8 +137,54 @@ class _BookedTicketPageState extends State<BookedTicketPage> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Icon(Icons.edit_calendar_outlined),
-                                      Icon(Icons.delete_outline),
+                                      Text('Time:'),
+                                      SizedBox(
+                                        width: getProportionateScreenWidth(10),
+                                      ),
+                                      Text('${ticket.time}'
+                                          // '${widget.myTickets[index].fullName}'
+                                          ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                      height: getProportionateScreenHeight(10)),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text('Date:'),
+                                      SizedBox(
+                                        width: getProportionateScreenWidth(10),
+                                      ),
+                                      Text('${ticket.date}'
+                                          // '${widget.myTickets[index].fullName}'
+                                          ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                      height: getProportionateScreenHeight(10)),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      GestureDetector(
+                                        onTap: () {},
+                                        child: Icon(
+                                          Icons.edit_calendar_outlined,
+                                          color: kmainColor,
+                                        ),
+                                      ),
+                                      GestureDetector(
+                                        onTap: () {
+                                          // BookedTicketService.deleteTicket(
+                                          //     ticket.id);
+                                        },
+                                       
+                                        child: Icon(
+                                          Icons.delete_outline,
+                                          color: kmainColor,
+                                        ),
+                                      ),
                                     ],
                                   )
                                 ],

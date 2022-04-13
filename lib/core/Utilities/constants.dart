@@ -10,6 +10,7 @@ const kbackgroundColor = Color(0xff2D8F4E);
 const ksecondBackgroundColor = Color(0xffffffff);
 String kfontFamily = "Brandon Grotesque";
 const kcontainerColor = Color.fromARGB(255, 225, 243, 233);
+const kblackcolor = Colors.black;
 
 
 class Palette {
