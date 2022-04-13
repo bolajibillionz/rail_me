@@ -1,8 +1,11 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 import 'package:flutter/material.dart';
+import 'package:rail_me/app/data/Model/rail_me_model.dart';
+import 'package:rail_me/app/presenttion/screen/user_welcome_screen.dart';
+import 'package:rail_me/app/presenttion/screen/welcome_screen.dart';
 import '../../../core/Utilities/constants.dart';
 import '../../../core/Utilities/size_config.dart';
-import 'user_welcome_screen.dart';
+import '../../data/services/rail_me_service.dart';
 
 class UserSigninSignUp extends StatefulWidget {
   const UserSigninSignUp({Key? key}) : super(key: key);
@@ -12,10 +15,20 @@ class UserSigninSignUp extends StatefulWidget {
 }
 
 class _UserSigninSignUpState extends State<UserSigninSignUp> {
-  final formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _signupKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _signinKey = GlobalKey<FormState>();
+
+  final _firstName = TextEditingController();
+  final _lastName = TextEditingController();
+  final _email = TextEditingController();
+  final _password = TextEditingController();
+  final _phoneNumber = TextEditingController();
+
   bool isMale = true;
-  bool isSignupScreen = true;
+  bool isSignupScreen = false;
   bool isRememberMe = false;
+  bool isloading = false;
+  bool isSignin = true;
 
   @override
   Widget build(BuildContext context) {
@@ -179,7 +192,10 @@ class _UserSigninSignUpState extends State<UserSigninSignUp> {
               ),
             ),
           ),
-          bottomHalfContainer(),
+          Container(
+              child: isSignupScreen
+                  ? bottomSignupHalfContainer()
+                  : bottomSigninHalfContainer())
         ],
       ),
     );
@@ -190,47 +206,51 @@ class _UserSigninSignUpState extends State<UserSigninSignUp> {
         child: Container(
       margin: EdgeInsets.only(top: getProportionateScreenHeight(20)),
       child: SingleChildScrollView(
-        child: Column(children: [
-          buildTextFormField(
-              Icons.mail_outline, 'info@railme.com', false, true),
-          buildTextFormField(Icons.lock, 'Password', true, false),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  Checkbox(
-                      value: isRememberMe,
-                      activeColor: Palette.textColor2,
-                      onChanged: (value) {
-                        setState(() {
-                          isRememberMe = !isRememberMe;
-                        });
-                      }),
-                  Text(
-                    "Remember Me",
-                    style: TextStyle(
-                      fontFamily: kfontFamily,
-                      fontSize: getProportionateScreenWidth(14),
-                      color: Palette.textColor1,
+        child: Form(
+          key: _signinKey,
+          child: Column(children: [
+            buildTextFormField(Icons.mail_outline, 'User Email', false, false,
+                true, false, _email),
+            buildTextFormField(Icons.lock, 'User Password', false, false, false,
+                true, _password),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    Checkbox(
+                        value: isRememberMe,
+                        activeColor: Palette.textColor2,
+                        onChanged: (value) {
+                          setState(() {
+                            isRememberMe = !isRememberMe;
+                          });
+                        }),
+                    Text(
+                      "Remember Me",
+                      style: TextStyle(
+                        fontFamily: kfontFamily,
+                        fontSize: getProportionateScreenWidth(14),
+                        color: Palette.textColor1,
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              TextButton(
-                  onPressed: () {},
-                  child: Text(
-                    'Forgot Password?',
-                  ))
-            ],
-          ),
-          SizedBox(
-            height: getProportionateScreenHeight(20),
-          ),
-          SizedBox(
-            height: getProportionateScreenHeight(10),
-          ),
-        ]),
+                  ],
+                ),
+                TextButton(
+                    onPressed: () {},
+                    child: Text(
+                      'Forgot Password?',
+                    ))
+              ],
+            ),
+            SizedBox(
+              height: getProportionateScreenHeight(20),
+            ),
+            SizedBox(
+              height: getProportionateScreenHeight(10),
+            ),
+          ]),
+        ),
       ),
     ));
   }
@@ -240,16 +260,27 @@ class _UserSigninSignUpState extends State<UserSigninSignUp> {
       child: Container(
         margin: EdgeInsets.only(top: getProportionateScreenHeight(20)),
         child: Form(
-          key: formKey,
+          key: _signupKey,
           child: SingleChildScrollView(
             child: Column(
               children: [
-                buildTextFormField(Icons.person, 'First Name', false, false),
-                buildTextFormField(Icons.person, 'Last Name', false, false),
-                buildPhoneNumber(Icons.phone, 'phone Number', false, false),
+                buildTextFormField(Icons.person, 'User First Name', true, false,
+                    false, false, _firstName),
                 buildTextFormField(
-                    Icons.email_outlined, 'info@railme.com', false, true),
-                buildTextFormField(Icons.lock, 'Password', true, false),
+                  Icons.person,
+                  'User Last Name',
+                  false,
+                  true,
+                  false,
+                  false,
+                  _lastName,
+                ),
+                buildPhoneNumber(Icons.phone, 'User phone Number', false, false,
+                    _phoneNumber),
+                buildTextFormField(Icons.email_outlined, 'User Email', false,
+                    false, true, false, _email),
+                buildTextFormField(Icons.lock, 'User Password', false, false,
+                    false, true, _password),
                 Padding(
                   padding: const EdgeInsets.only(top: 10, left: 10),
                   child: Row(
@@ -375,7 +406,7 @@ class _UserSigninSignUpState extends State<UserSigninSignUp> {
     );
   }
 
-  AnimatedPositioned bottomHalfContainer() {
+  AnimatedPositioned bottomSignupHalfContainer() {
     return AnimatedPositioned(
         duration: Duration(milliseconds: 700),
         curve: Curves.bounceInOut,
@@ -405,12 +436,9 @@ class _UserSigninSignUpState extends State<UserSigninSignUp> {
               ],
             ),
             child: GestureDetector(
-              onTap: (() => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => UserWelcomePage(),
-                    ),
-                  )),
+              onTap: (() {
+                _isSignUp();
+              }),
               child: Container(
                   decoration: BoxDecoration(
                     gradient: LinearGradient(colors: [
@@ -427,21 +455,91 @@ class _UserSigninSignUpState extends State<UserSigninSignUp> {
                           offset: Offset(0, 1))
                     ],
                   ),
-                  child: Icon(
-                    Icons.arrow_forward,
-                    color: ksecondaryColor,
-                    size: getProportionateScreenWidth(30),
-                  )),
+                  child: isloading
+                      ? CircularProgressIndicator(
+                          valueColor:
+                              AlwaysStoppedAnimation<Color>(Colors.yellow),
+                        )
+                      : Icon(
+                          Icons.arrow_forward,
+                          color: ksecondaryColor,
+                          size: getProportionateScreenWidth(30),
+                        )),
             ),
           ),
         ));
   }
 
-  Widget buildTextFormField(
-      IconData icon, String hintText, bool isPassword, bool isEmail) {
+  AnimatedPositioned bottomSigninHalfContainer() {
+    return AnimatedPositioned(
+        duration: Duration(milliseconds: 700),
+        curve: Curves.bounceInOut,
+        top: isSignupScreen
+            ? getProportionateScreenHeight(670)
+            : getProportionateScreenHeight(560),
+        right: getProportionateScreenWidth(0),
+        left: getProportionateScreenWidth(0),
+        child: Center(
+          child: Container(
+            padding: EdgeInsets.fromLTRB(
+                getProportionateScreenWidth(15),
+                getProportionateScreenHeight(15),
+                getProportionateScreenWidth(15),
+                getProportionateScreenHeight(15)),
+            height: getProportionateScreenHeight(80),
+            width: getProportionateScreenWidth(80),
+            decoration: BoxDecoration(
+              color: ksecondaryColor,
+              borderRadius: BorderRadius.circular(50),
+              boxShadow: [
+                BoxShadow(
+                    color: kmainColor.withOpacity(0.3),
+                    spreadRadius: 1,
+                    blurRadius: 1,
+                    offset: Offset(0, 1))
+              ],
+            ),
+            child: GestureDetector(
+              onTap: (() {
+                _isSignin();
+              }),
+              child: Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(colors: [
+                      Color.fromARGB(255, 29, 175, 34),
+                      Color.fromARGB(255, 95, 216, 99),
+                      Color.fromARGB(255, 82, 170, 10),
+                    ], begin: Alignment.topLeft, end: Alignment.bottomRight),
+                    borderRadius: BorderRadius.circular(50),
+                    boxShadow: [
+                      BoxShadow(
+                          color: kmainColor.withOpacity(0.3),
+                          spreadRadius: 1,
+                          blurRadius: 1,
+                          offset: Offset(0, 1))
+                    ],
+                  ),
+                  child: isloading
+                      ? CircularProgressIndicator(
+                          valueColor:
+                              AlwaysStoppedAnimation<Color>(Colors.yellow),
+                        )
+                      : Icon(
+                          Icons.arrow_forward,
+                          color: ksecondaryColor,
+                          size: getProportionateScreenWidth(30),
+                        )),
+            ),
+          ),
+        ));
+  }
+
+  Widget buildTextFormField(IconData icon, String hintText, bool isFirstName,
+      bool isLastName, bool isEmail, bool isPassword, var entercontroller) {
     return Padding(
       padding: EdgeInsets.only(bottom: getProportionateScreenHeight(8)),
       child: TextFormField(
+        controller: entercontroller,
         obscureText: isPassword,
         keyboardType: isEmail ? TextInputType.emailAddress : TextInputType.text,
         decoration: InputDecoration(
@@ -469,16 +567,21 @@ class _UserSigninSignUpState extends State<UserSigninSignUp> {
               fontSize: getProportionateScreenWidth(14),
               color: Palette.textColor1),
         ),
-        onChanged: (value) => setState(() => hintText = value),
+        onChanged: (value) {
+          
+
+          setState(() {});
+        },
       ),
     );
   }
 
-  Widget buildPhoneNumber(
-      IconData icon, String hintText, bool isPassword, bool isEmail) {
+  Widget buildPhoneNumber(IconData icon, String hintText, bool isPassword,
+      bool isEmail, var entercontrollers) {
     return Padding(
       padding: EdgeInsets.only(bottom: getProportionateScreenHeight(8)),
       child: TextFormField(
+        controller: entercontrollers,
         obscureText: isPassword,
         keyboardType: isEmail ? TextInputType.emailAddress : TextInputType.text,
         decoration: InputDecoration(
@@ -508,8 +611,61 @@ class _UserSigninSignUpState extends State<UserSigninSignUp> {
             return "Phone Number not correct ";
           }
         },
-        onChanged: (value) => setState(() => hintText = value),
+        onChanged: (value) {
+          setState(() {});
+        },
       ),
     );
+  }
+
+  void _isSignUp() async {
+    if (_signupKey.currentState?.validate() ?? false) {
+      _signupKey.currentState?.save();
+      NewUserClass newUser = NewUserClass(
+        firstName: _firstName.text,
+        lastName: _lastName.text,
+        email: _email.text,
+        password: _password.text,
+        phoneNumber: _phoneNumber.text,
+      );
+      setState(() {
+        isloading = true;
+      });
+      var response = await NewUserService.signUpUser(newUser);
+      setState(() {
+        isloading = false;
+        isSignupScreen = false;
+      });
+    } else
+      () {};
+  }
+
+  void _isSignin() async {
+    
+    if (_signinKey.currentState?.validate() ?? false) {
+      _signinKey.currentState?.save();
+      UserLogin userLogin = UserLogin(
+        email: _email.text,
+        password: _password.text,
+      );
+      setState(() {
+        isloading = true;
+      });
+      var response = await LoginUserService.loginUser(userLogin);
+
+      setState(() {
+        isloading = false;
+      });
+      if (response is Success) {
+         Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => UserWelcomePage()));
+      }
+      else {
+        print("error");
+      }
+    } else {
+      print('else');
+    }
+    ;
   }
 }

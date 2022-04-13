@@ -38,7 +38,7 @@ class UserWelcomePage extends StatelessWidget {
                   ]),
                   SizedBox(height: getProportionateScreenHeight(10)),
                   Text(
-                    "Welcome, Bolaji",
+                    "Welcome",
                     style: TextStyle(
                         fontFamily: kfontFamily,
                         color: kmainColor,
