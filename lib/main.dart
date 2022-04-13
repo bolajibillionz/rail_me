@@ -29,3 +29,56 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+
+// child: ListView.builder(
+//               itemCount: widget.myTickets.length,
+//               itemBuilder: (context, index) {
+//                 return Padding(
+//                   padding: EdgeInsets.symmetric(
+//                     horizontal: getProportionateScreenWidth(20),
+//                     vertical: getProportionateScreenHeight(10),
+//                   ),
+//                   child: Container(
+//                     decoration: BoxDecoration(
+//                       color: ksecondBackgroundColor,
+//                       borderRadius: BorderRadius.circular(20),
+//                     ),
+//                     child: Padding(
+//                       padding: EdgeInsets.symmetric(
+//                         horizontal: getProportionateScreenWidth(20),
+//                         vertical: getProportionateScreenHeight(10),
+//                       ),
+//                       child: Column(
+//                         crossAxisAlignment: CrossAxisAlignment.start,
+//                         children: [
+//                           Text(
+//                             'Ticket No: ${widget.myTickets[index].ticketNo}',
+//                             style: TextStyle(
+//                               fontSize: getProportionateScreenWidth(20),
+//                               fontWeight: FontWeight.bold,
+//                               color: ktextColor,
+//                             ),
+//                           ),
+//                           SizedBox(height: getProportionateScreenHeight(10)),
+//                           Text(
+//                             'Full Name: ${widget.myTickets[index].fullName}',
+//                             style: TextStyle(
+//                               fontSize: getProportionateScreenWidth(20),
+//                               fontWeight: FontWeight.bold,
+//                               color: ktextColor,
+//                             ),
+//                           ),
+//                           SizedBox(height: getProportionateScreenHeight(10)),
+//                           Text(
+//                             'Address: ${widget.myTickets[index].address}',
+//                             style: TextStyle(
+//                               fontSize: getProportionateScreenWidth(20),
+//                               fontWeight: FontWeight.bold,
+//                               color: ktextColor,
+//                             ),
+//                           ),
+//                           SizedBox(height: getProportionateScreenHeight(10)),
+//                           Text(
+//                             'Destination: ${widget.myTickets[index].destination
+          

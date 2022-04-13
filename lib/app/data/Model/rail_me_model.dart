@@ -297,3 +297,85 @@ class DeleteBookingClass {
         "__v": v == null ? null : v,
     };
 }
+
+
+class AllService {
+    AllService({
+         this.id,
+         this.destination,
+         this.reservation,
+         this.time,
+         this.date,
+         this.createdAt,
+         this.updatedAt,
+         this.v,
+    });
+
+    String? id;
+    String? destination;
+    String? reservation;
+    String? time;
+    DateTime? date;
+    DateTime? createdAt;
+    DateTime? updatedAt;
+    int? v;
+
+    factory AllService.fromJson(Map<String, dynamic> json) => AllService(
+        id: json["_id"] == null ? null : json["_id"],
+        destination: json["destination"] == null ? null : json["destination"],
+        reservation: json["reservation"] == null ? null : json["reservation"],
+        time: json["time"] == null ? null : json["time"],
+        date: json["date"] == null ? null : DateTime.parse(json["date"]),
+        createdAt: json["createdAt"] == null ? null : DateTime.parse(json["createdAt"]),
+        updatedAt: json["updatedAt"] == null ? null : DateTime.parse(json["updatedAt"]),
+        v: json["__v"] == null ? null : json["__v"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "_id": id == null ? null : id,
+        "destination": destination == null ? null : destination,
+        "reservation": reservation == null ? null : reservation,
+        "time": time == null ? null : time,
+        "date": date == null ? null : date!.toIso8601String(),
+        "createdAt": createdAt == null ? null : createdAt!.toIso8601String(),
+        "updatedAt": updatedAt == null ? null : updatedAt!.toIso8601String(),
+        "__v": v == null ? null : v,
+    };
+}
+
+class BookedTicket {
+    BookedTicket({
+         this.id,
+         this.destination,
+         this.reservation,
+         this.time,
+         this.date,
+         
+    });
+
+    String? id;
+    String? destination;
+    String? reservation;
+    String? time;
+    DateTime? date;
+    
+
+    factory BookedTicket.fromJson(Map<String, dynamic> json) => BookedTicket(
+        id: json["_id"] == null ? null : json["_id"],
+        destination: json["destination"] == null ? null : json["destination"],
+        reservation: json["reservation"] == null ? null : json["reservation"],
+        time: json["time"] == null ? null : json["time"],
+        date: json["date"] == null ? null : DateTime.parse(json["date"]),
+        
+    );
+
+    Map<String, dynamic> toJson() => {
+        "_id": id == null ? null : id,
+        "destination": destination == null ? null : destination,
+        "reservation": reservation == null ? null : reservation,
+        "time": time == null ? null : time,
+        "date": date == null ? null : date!.toIso8601String(),
+        
+    };
+}
+

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rail_me/app/presenttion/screen/booked_ticket.dart';
 import 'package:rail_me/app/presenttion/screen/new_ticket_page.dart';
 import 'package:rail_me/app/presenttion/screen/support_page.dart';
 import '../../../core/Utilities/constants.dart';
@@ -104,7 +105,12 @@ class UserWelcomePage extends StatelessWidget {
                   ),
                   Expanded(
                     child: GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => BookedTicketPage()));
+                      },
                       child: BackgroundImage(
                         image: AssetImage("images/t3.jpg"),
                         child: Container(

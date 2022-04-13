@@ -203,48 +203,5 @@ class _NewTicketPageState extends State<NewTicketPage> {
     }
     ;
   }
+  
 }
-
-
-
-                    // Expanded(child: 
-                    // Container(
-                    //   margin: EdgeInsets.fromLTRB(getProportionateScreenWidth(15), 
-                    //   getProportionateScreenHeight(10), 
-                    //   getProportionateScreenWidth(15), 
-                    //   getProportionateScreenHeight(10)),
-                    //   padding: EdgeInsets.fromLTRB(getProportionateScreenWidth(15), 
-                    //   getProportionateScreenHeight(10), 
-                    //   getProportionateScreenWidth(15), 
-                    //   getProportionateScreenHeight(10)),
-                    //   decoration: BoxDecoration(
-                    //     color: kmainColor,
-                    //     borderRadius: BorderRadius.circular(10),
-                    //   ),
-                    //   child: Center(child: Text("Process",
-                    //   style: TextStyle(
-                    //     color: Colors.white,
-                    //     fontSize: getProportionateScreenWidth(15),
-                    //     // fontWeight: FontWeight.bold,
-                      
-                    //   ),)),
-                      
-
-                    // )),
-                   
-                    // Expanded(
-                    //   child: Container(
-                    //     height: getProportionateScreenHeight(150),
-                    //     width: double.infinity,
-                    //     decoration: BoxDecoration(
-                    //       image: DecorationImage(
-                    //             image: AssetImage("images/sk1.png"),
-                    //             fit: BoxFit.cover,
-                    //             colorFilter: ColorFilter.mode(
-                    //               Colors.white.withOpacity(0.1),
-                    //               BlendMode.darken,
-                                
-                    
-                    //     ),
-                    //   ),),),
-                    // )

@@ -98,6 +98,77 @@ class BookTicketService {
   }
 }
 
+
+class BookedTicketService {
+  static final Dio dio = Dio();
+  static Future<Result> getBookedTicket() async {
+    String? _token = await SharedDataRepository.instance.getToken();
+    print(_token);
+    final newTicketUrl = Uri.parse(bookedTicketUrl);
+    try {
+      var response = await http.get(newTicketUrl,
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer $_token"
+            // HttpHeaders.authorizationHeader: 'Bearer $_token',
+          });
+      if (response.statusCode == 200) {
+        print(response.body);
+        List<Map <String, dynamic>> ticketlist = List<Map<String, dynamic>>.from(json.decode(response.body)['allServices']);
+        print(ticketlist);
+        List<BookedTicket> listOfTicket = ticketlist.map((ticket) => BookedTicket.fromJson(ticket)).toList();
+        return Success(response: listOfTicket);
+      } else {
+        print(response.statusCode);
+        return Failure(error: 'Unable to get booked ticket');
+      }
+    } catch (e) {
+      print(e);
+      if (e is SocketException) {
+        return Failure(error: 'No internet connection');
+      } else {
+        return Failure(error: 'Unable to connect to server');
+      }
+    }
+  }
+}
+
+class EditBookingTimeService {
+  static final Dio dio = Dio();
+  static Future<Result> editBookingTime(String id, String time) async {
+    String? _token = await SharedDataRepository.instance.getToken();
+    print(_token);
+    final editTicketUrl = Uri.parse(editBookingTimeUrl);
+    try {
+      var response = await http.put(editTicketUrl,
+          body: jsonEncode({
+            "id": id,
+            "time": time,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer $_token"
+            // HttpHeaders.authorizationHeader: 'Bearer $_token',
+          });
+      if (response.statusCode == 200) {
+        print(response.body);
+        return Success(response: response.body);
+      } else {
+        print(response.statusCode);
+        return Failure(error: 'Unable to edit booking time');
+      }
+    } catch (e) {
+      print(e);
+      if (e is SocketException) {
+        return Failure(error: 'No internet connection');
+      } else {
+        return Failure(error: 'Unable to connect to server');
+      }
+    }
+  }
+}
+
+
 abstract class Result {}
 
 class Success extends Result {
