@@ -14,8 +14,7 @@ const String bookTicketUrl =
     'https://fathomless-beyond-10355.herokuapp.com/api/v1/booking';
 const String bookedTicketUrl =
     'https://fathomless-beyond-10355.herokuapp.com/api/v1/getAllServices';
-String editBookingTimeUrl =
-    'https://fathomless-beyond-10355.herokuapp.com/api/v1/updateTrainTime/$_id';
+
 String deleteBookingUrl =
     'https://fathomless-beyond-10355.herokuapp.com/api/v1/deleteBooking/:$_id';
 
@@ -167,40 +166,7 @@ class DeleteTicketsService {
   }
 }
 
-class EditBookingTimeService {
-  static final Dio dio = Dio();
-  static Future<Result> editBookingTime(String id, String time) async {
-    String? _token = await SharedDataRepository.instance.getToken();
-    print(_token);
-    final editTicketUrl = Uri.parse(editBookingTimeUrl);
-    try {
-      var response = await http.put(editTicketUrl,
-          body: jsonEncode({
-            "id": id,
-            "time": time,
-          }),
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": "Bearer $_token"
-            // HttpHeaders.authorizationHeader: 'Bearer $_token',
-          });
-      if (response.statusCode == 200) {
-        print(response.body);
-        return Success(response: response.body);
-      } else {
-        print(response.statusCode);
-        return Failure(error: 'Unable to edit booking time');
-      }
-    } catch (e) {
-      print(e);
-      if (e is SocketException) {
-        return Failure(error: 'No internet connection');
-      } else {
-        return Failure(error: 'Unable to connect to server');
-      }
-    }
-  }
-}
+
 
 
 abstract class Result {}

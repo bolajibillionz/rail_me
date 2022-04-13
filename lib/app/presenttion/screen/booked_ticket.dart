@@ -1,8 +1,19 @@
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:rail_me/app/data/services/rail_me_service.dart';
 import 'package:rail_me/app/data/Model/rail_me_model.dart';
+import 'package:rail_me/app/data/shared_data.dart';
 import 'package:rail_me/core/Utilities/constants.dart';
 import 'package:rail_me/core/Utilities/size_config.dart';
+import 'package:http/http.dart' as http;
+
+String editBookingTimeUrl =
+    'https://fathomless-beyond-10355.herokuapp.com/api/v1/updateTrainTime/$ticketId';
+
+late String? ticketId;
 
 class BookedTicketPage extends StatefulWidget {
   @override
@@ -57,6 +68,7 @@ class _BookedTicketPageState extends State<BookedTicketPage> {
                           itemBuilder: (context, index) {
                             var ticket =
                                 (snapshot.data! as Success).response[index];
+                            ticketId = '${ticket.id}';
                             return Container(
                               margin: EdgeInsets.all(
                                   getProportionateScreenWidth(20)),
@@ -179,7 +191,6 @@ class _BookedTicketPageState extends State<BookedTicketPage> {
                                           // BookedTicketService.deleteTicket(
                                           //     ticket.id);
                                         },
-                                       
                                         child: Icon(
                                           Icons.delete_outline,
                                           color: kmainColor,
@@ -196,5 +207,40 @@ class _BookedTicketPageState extends State<BookedTicketPage> {
         ],
       ),
     );
+  }
+}
+
+class EditBookingTimeService {
+  static final Dio dio = Dio();
+  static Future<Result> editBookingTime(String id, String time) async {
+    String? _token = await SharedDataRepository.instance.getToken();
+    print(_token);
+    final editTicketUrl = Uri.parse(editBookingTimeUrl);
+    try {
+      var response = await http.put(editTicketUrl,
+          body: jsonEncode({
+            "id": id,
+            "time": time,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer $_token"
+            // HttpHeaders.authorizationHeader: 'Bearer $_token',
+          });
+      if (response.statusCode == 200) {
+        print(response.body);
+        return Success(response: response.body);
+      } else {
+        print(response.statusCode);
+        return Failure(error: 'Unable to edit booking time');
+      }
+    } catch (e) {
+      print(e);
+      if (e is SocketException) {
+        return Failure(error: 'No internet connection');
+      } else {
+        return Failure(error: 'Unable to connect to server');
+      }
+    }
   }
 }
