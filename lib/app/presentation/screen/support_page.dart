@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rail_me/app/presenttion/screen/user_profile.dart';
+import 'package:rail_me/app/presentation/screen/user_profile.dart';
 import '../../../core/Utilities/constants.dart';
 import '../../../core/Utilities/reuseables.dart';
 import '../../../core/Utilities/size_config.dart';

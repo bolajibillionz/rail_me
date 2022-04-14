@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:rail_me/app/data/Model/rail_me_model.dart';
 import 'package:rail_me/app/data/services/rail_me_service.dart';
-import 'package:rail_me/app/presenttion/screen/booked_ticket.dart';
+import 'package:rail_me/app/presentation/screen/booked_ticket.dart';
 import '../../../core/Utilities/constants.dart';
 import '../../../core/Utilities/size_config.dart';
 

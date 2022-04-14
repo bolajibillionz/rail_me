@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:rail_me/app/presenttion/screen/welcome_screen.dart';
+import 'package:rail_me/app/presentation/screen/welcome_screen.dart';
 import '../../../core/Utilities/constants.dart';
 import '../../../core/Utilities/reuseables.dart';
 import '../../../core/Utilities/size_config.dart';

@@ -1,6 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:flutter/material.dart';
-import 'package:rail_me/app/presenttion/screen/user_signin_signup.dart';
+import 'package:rail_me/app/presentation/screen/user_signin_signup.dart';
 import '../../../core/Utilities/constants.dart';
 import '../../../core/Utilities/reuseables.dart';
 import '../../../core/Utilities/size_config.dart';

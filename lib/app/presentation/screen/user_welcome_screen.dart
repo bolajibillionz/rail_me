@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:rail_me/app/presenttion/screen/booked_ticket.dart';
-import 'package:rail_me/app/presenttion/screen/new_ticket_page.dart';
-import 'package:rail_me/app/presenttion/screen/support_page.dart';
+import 'package:rail_me/app/presentation/screen/booked_ticket.dart';
+import 'package:rail_me/app/presentation/screen/new_ticket_page.dart';
+import 'package:rail_me/app/presentation/screen/support_page.dart';
 import '../../../core/Utilities/constants.dart';
 import '../../../core/Utilities/reuseables.dart';
 import '../../../core/Utilities/size_config.dart';

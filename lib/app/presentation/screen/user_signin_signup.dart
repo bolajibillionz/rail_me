@@ -1,8 +1,8 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 import 'package:flutter/material.dart';
 import 'package:rail_me/app/data/Model/rail_me_model.dart';
-import 'package:rail_me/app/presenttion/screen/user_welcome_screen.dart';
-import 'package:rail_me/app/presenttion/screen/welcome_screen.dart';
+import 'package:rail_me/app/presentation/screen/user_welcome_screen.dart';
+import 'package:rail_me/app/presentation/screen/welcome_screen.dart';
 import '../../../core/Utilities/constants.dart';
 import '../../../core/Utilities/size_config.dart';
 import '../../data/services/rail_me_service.dart';
