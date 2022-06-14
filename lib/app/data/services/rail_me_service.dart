@@ -77,7 +77,7 @@ class BookTicketService {
           headers: {
             "Content-Type": "application/json",
             "Authorization": "Bearer $_token"
-            // HttpHeaders.authorizationHeader: 'Bearer $_token',
+          
           });
       if (response.statusCode == 201) {
         print(response.body);

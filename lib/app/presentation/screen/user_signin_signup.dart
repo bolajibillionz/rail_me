@@ -568,8 +568,6 @@ class _UserSigninSignUpState extends State<UserSigninSignUp> {
               color: Palette.textColor1),
         ),
         onChanged: (value) {
-          
-
           setState(() {});
         },
       ),
@@ -641,7 +639,6 @@ class _UserSigninSignUpState extends State<UserSigninSignUp> {
   }
 
   void _isSignin() async {
-    
     if (_signinKey.currentState?.validate() ?? false) {
       _signinKey.currentState?.save();
       UserLogin userLogin = UserLogin(
@@ -657,10 +654,9 @@ class _UserSigninSignUpState extends State<UserSigninSignUp> {
         isloading = false;
       });
       if (response is Success) {
-         Navigator.pushReplacement(context,
+        Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) => UserWelcomePage()));
-      }
-      else {
+      } else {
         print("error");
       }
     } else {

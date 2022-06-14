@@ -8,13 +8,15 @@ class SharedDataRepository {
   final _storage = FlutterSecureStorage();
   final String _token = 'bearer_token';
 
+  Future<void> setToken(String bearerToken) async {
+    await _storage.write(key: _token, value: bearerToken);
+  }
+
   Future<String?> getToken() async {
     return await _storage.read(key: _token);
   }
 
-  Future<void> setToken(String bearerToken) async {
-    await _storage.write(key: _token, value: bearerToken);
-  }
+  
 
   Future<void> deleteToken() async {
     await _storage.delete(key: _token);
