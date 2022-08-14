@@ -64,6 +64,8 @@ class LoginUserService {
   }
 }
 
+
+
 class BookTicketService {
   static Future<Result> bookTicket(Ticket bookTicketModel) async {
     String? _token = await SharedDataRepository.instance.getToken();
@@ -112,7 +114,7 @@ class BookedTicketService {
             // HttpHeaders.authorizationHeader: 'Bearer $_token',
           });
       if (response.statusCode == 200) {
-        print(response.body);
+        print(" this is meeee ${response.body}");
         List<Map <String, dynamic>> ticketlist = List<Map<String, dynamic>>.from(json.decode(response.body)['allServices']);
         print(ticketlist);
         List<BookedTicket> listOfTicket = ticketlist.map((ticket) => BookedTicket.fromJson(ticket)).toList();
